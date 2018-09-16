@@ -16,24 +16,14 @@ import java.net.URL
 
 class MainActivity : Activity() {
 
-    //ao fazer envio da resolucao, use este link no seu codigo!
-    //OUTROS LINKS PARA TESTAR...
-    //http://rss.cnn.com/rss/edition.rss
-    //http://pox.globo.com/rss/g1/brasil/
-    //http://pox.globo.com/rss/g1/ciencia-e-saude/
-    //http://pox.globo.com/rss/g1/tecnologia/
-
-    //use ListView ao invés de TextView - deixe o atributo com o mesmo nome
-
     private lateinit var RSS_FEED: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         RSS_FEED = getString(R.string.rssfeed)
-       val layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
+        val layoutManager = LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false)
         conteudoRSS.layoutManager = layoutManager
-
     }
     override fun onStart() {
         super.onStart()
@@ -44,7 +34,7 @@ class MainActivity : Activity() {
             e.printStackTrace()
         }
     }
-
+    // Realizando a operaçao de rede fora da thread principal 
     private fun atualizarconteudo() {
         doAsync {
             val feedXML = getRssFeed(RSS_FEED)
@@ -56,8 +46,6 @@ class MainActivity : Activity() {
         }
 
     }
-
-    //Opcional - pesquise outros meios de obter arquivos da internet - bibliotecas, etc.
     @Throws(IOException::class)
     private fun getRssFeed(feed: String): String {
         var `in`: InputStream? = null
