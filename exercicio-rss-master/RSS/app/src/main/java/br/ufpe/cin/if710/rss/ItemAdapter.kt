@@ -16,18 +16,18 @@ class ItemAdapter (private val item: List<ItemRSS>, private val context : Contex
     override fun getItemCount(): Int {
         return item.size
     }
-
+    //retorna o layout criado pelo ViewHolder ja inflado na view
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(context).inflate(R.layout.itemlista,parent,false)
         return ViewHolder(view)
     }
-
+    //Recupera o objeto da lista de objetos pela posição e associa a ViewHolder
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val rss = item[position]
         val link = rss.link
         holder.titulo.text = rss.title
         holder.data.text = rss.pubDate
-
+        //Deixando o titulo clicavel para abrir o link associado a ele
         holder.titulo.setOnClickListener{
             val i = Intent(ACTION_VIEW)
             i.data = Uri.parse(rss.link)
@@ -36,7 +36,6 @@ class ItemAdapter (private val item: List<ItemRSS>, private val context : Contex
         }
 
     }
-
     class ViewHolder(item : View) : RecyclerView.ViewHolder(item){
         var titulo = item.item_titulo
         var data = item.item_data
